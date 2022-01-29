@@ -1,0 +1,297 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Alfa Slab One';
+}
+
+.wraper {
+    margin: 60px auto;
+    border: 2px solid black;
+}
+
+.menu {
+    align-items: center;
+    border: 4px outset rgb(0, 0, 0);
+    height: 80px;
+    background-color:rgb(0, 0, 170);
+    display: flex;
+}
+
+.select {
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 7px;
+    margin-left: 23px;
+    width: 100px;
+    height: 40px;
+    background-color: rgb(0, 229, 255);
+    opacity: 1;
+    transition: opacity .1s;
+}
+.select:hover {
+    opacity: 0.75;
+}
+
+.restart {
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 7px;
+    width: 100px;
+    height: 40px;
+    background-color: rgb(0, 229, 255);
+    opacity: 1;
+    margin-left: 23px;
+}
+.restart:hover {
+    opacity: 0.75;
+}
+
+.restart:active {
+    transform: scale(0.95);
+}
+
+.flagmenu {
+    height: 40px;
+    width: 100px;
+    background-color: rgb(0, 229, 255);
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 7px;
+    margin-left: 23px;
+    position: relative;
+}
+
+.flagmenu::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 15px;
+    background:rgb(175, 131, 37);
+    transform: translate(110%, 50%);
+    border-bottom: 4px solid rgb(5, 155, 25) ;
+    border-left: 6px solid rgb(0, 229, 255);;
+    border-right: 6px solid rgb(0, 229, 255);;
+}
+
+.flagmenu::after {
+    content: '';
+    position: absolute;
+    width: 0; 
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 15px solid #ff0000;
+    border-bottom: 5px solid transparent;
+    transform: translate(157%, 65%);
+}
+
+.flagcounter {
+    width: 50px;
+    height: 30px;
+    position: absolute;
+    left: 40px;
+    top: 6px;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.game_table {
+    display: table;
+}
+
+.line {
+    display: table-row;
+    width: 100%;
+}
+
+.cell {
+    position: relative;
+    border: 4px outset rgb(0, 0, 0);
+    display: table-cell;
+    background-color:rgb(0, 60, 255);
+    width: 45px;
+    height: 45px;
+    opacity: 1;
+    text-align: center;
+    vertical-align: middle;
+    font-family: inherit;
+    font-size: 20px;
+}
+
+.cell:hover {
+    opacity: 0.75;
+}
+
+.cell:active {
+    border: 4px inset rgb(0, 0, 0);
+}
+
+.mine {
+    background-color:rgb(237, 180, 255);
+    position: relative;
+}
+
+.mine::before {
+    content: '';
+    position: absolute;
+    background:rgb(237, 180, 255);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 4px dashed rgb(0, 0, 0) ;
+    transform: translate(-50%, -50%);
+}
+
+.mine::after {
+    content: '';
+    position: absolute;
+    background:black;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border: 4px dashed rgb(155, 17, 17);
+    border-radius: 50%;
+}
+
+.num0 {
+    background-color:rgb(255, 255, 255);
+}
+
+.num1 {
+    background-color:rgb(255, 196, 157);
+}
+
+.num1::before {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    content: '1';
+    color: rgb(45, 84, 255);
+}
+
+.num2 {
+    background-color:rgb(255, 246, 116);
+}
+
+.num2::before{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    content: '2';
+    color: rgb(10, 143, 10);
+}
+
+.num3 {
+    background-color:rgb(219, 219, 219);
+}
+
+.num3::before{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    content: '3';
+    color: rgb(255, 53, 53);
+}
+
+.num4 {
+    background-color:rgb(255, 182, 182);
+}
+
+.num4::before{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    content: '4';
+    color: rgb(8, 10, 138);
+}
+
+.num5 {
+    background-color:rgb(151, 255, 156);
+}
+
+.num5::before {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    content: '5';
+    color: rgb(145, 9, 9);
+}
+
+.num6 {
+    background-color:rgb(154, 248, 255);;
+}
+
+.num6::before{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    content: '6';
+    color: rgb(184, 12, 155);
+}
+
+.num7 {
+    background-color:rgb(154, 248, 255);;
+}
+
+.num7::before{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    content: '7';
+    color: rgb(184, 12, 155);
+}
+
+.num8 {
+    background-color:rgb(154, 248, 255);;
+}
+
+.num8::before{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    content: '8';
+    color: rgb(184, 12, 155);
+}
+
+.flag {
+    background-color:rgb(178, 255, 106);
+    position: relative;
+}
+
+.flag::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 15px;
+    background:rgb(175, 131, 37);
+    transform: translate(-50%, -50%);
+    border-bottom: 4px solid rgb(5, 155, 25) ;
+    border-left: 6px solid rgb(178, 255, 106);
+    border-right: 6px solid rgb(178, 255, 106);
+}
+.flag::after {
+    content: '';
+    position: absolute;
+    width: 0; 
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 15px solid #ff0000;
+    border-bottom: 5px solid transparent;
+    transform: translate(-15%, -130%);
+}
+
+.err {
+    background-color:rgb(0, 60, 255);
+    position: relative;
+}
+
+.err::before {
+    content: '';
+    position: absolute;
+    background:rgb(255, 0, 0);
+    width: 4px;
+    height: 47px;
+    transform: rotate(45deg) translate(-18px, -15px);
+}
+
+.err::after {
+    content: '';
+    position: absolute;
+    background:rgb(255, 0, 0);
+    width: 4px;
+    height: 47px;
+    transform: rotate(315deg) translate(15px, -18px);
+}
