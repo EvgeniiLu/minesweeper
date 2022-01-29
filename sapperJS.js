@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sapper.rerenderTable();
         addEventListenerFunc();
     }
+    
     class Sapper {
 
         get select() {
