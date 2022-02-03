@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if(sapper.select.value == 'hard' || sapper.select.value == 'medium') {
                     arr.forEach(elem => {
                         let random = Math.random();
-                        if (random < 0.6) {
+                        if (random < 0.4) {
                             let arr2 = sapper.elemEnvironmentFunc(elem);
                             forNumberZero(arr2);
                         }
