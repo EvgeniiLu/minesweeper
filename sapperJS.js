@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function eventListinerRightClick(event) {
         event.preventDefault();
-        sapper.flagManagement(event);
+        sapper.flagCounterManager(event);
         sapper.choiceOfOperation();
     }
     
@@ -59,6 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         get flagCounter() {
             return document.querySelector('.flagcounter');
+        }
+        get gameTable() {
+            return document.querySelector('.game_table');
+        }
+        get cellsArr() {
+            return document.querySelectorAll('.cell');
         }
 
         constructor(height, width, mines) {
@@ -115,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.wraper.style.width =`${table.clientWidth}px`;
         }
 
-        flagManagement(event) {
+        flagCounterManager(event) {
             let counter = +this.flagCounter.textContent;
             if(event.target.classList.contains('cell') && !event.target.classList.contains('flag') && !event.target.hasAttribute('checked')) {
                 event.target.classList.add('flag');
@@ -134,10 +140,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } 
 
         counterFunc(value, plus = true) {
-            let count = document.querySelector('.game_table');
-            let num = +count.getAttribute(`${value}`);
+            let num = +this.gameTable.getAttribute(`${value}`);
             plus ? num++ : num--;
-            count.setAttribute(`${value}`, `${num}`);
+            this.gameTable.setAttribute(`${value}`, `${num}`);
         }
 
         choiceOfOperation(event = false) {
@@ -146,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.firstClickAndCreateMines(event);
                     this.firstClick = true;
                 } else {
-                    if(event.hasAttribute('mine')) {
+                    if(event.hasAttribute('mine') && !event.classList.contains('flag')) {
                         event.style.border = '4px outset red';
                         this.gameOver = true;
                     } 
@@ -163,27 +168,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         checkingСonditionsGame() {
-            if(this.flagCounter.textContent === '0' && document.querySelector('.game_table').getAttribute('counterflags') === `${this.mines}`) {
-                let cellsArr = document.querySelectorAll('.cell');
-                cellsArr.forEach(value => {
+            if(this.flagCounter.textContent === '0' && this.gameTable.getAttribute('counterflags') === `${this.mines}`) {
+                this.cellsArr.forEach(value => {
                     if(!value.hasAttribute('checked'))
                         this.defineСlass(value);
                 });
                 removerEventListenerFunc();
             }
-            else if (`${this.height * this.width - this.mines}` === document.querySelector('.game_table').getAttribute('counteropencells')) {
+            else if (`${this.height * this.width - this.mines}` === this.gameTable.getAttribute('counteropencells')) {
                 removerEventListenerFunc();
             }
             else if(this.gameOver) {
                 removerEventListenerFunc();
-                let cellsArr = document.querySelectorAll('.cell');
-                cellsArr.forEach(value => {
+                this.cellsArr.forEach(value => {
                     if(value.hasAttribute('mine') && !value.classList.contains('flag')) {
                         value.classList.add('mine');
                     }
                     if(!value.hasAttribute('mine') && value.classList.contains('flag')) {
-                        value.classList.remove('flag');
-                        value.classList.add('err');
+                        value.classList.replace('flag', 'err');
                     }
                 });
             }
@@ -193,14 +195,14 @@ document.addEventListener('DOMContentLoaded', function() {
             let set = new Set();
             let arr = this.elemEnvironmentFunc(event);
 
-            forNumberZero(arr);
-            forMediumAndHard(arr);
+            setAttributeZero(arr);
+            difficultyСoefficient(arr);
             event.setAttribute('number', '0');
             set.add(event);
-            forMines(set);
+            forMines.call(this, set);
             this.countAndSetAttribute(event);
 
-            function forNumberZero(arr) {
+            function setAttributeZero(arr) {
                 arr.forEach(value => {
                     value.setAttribute('number', '0');
                     set.add(value);
@@ -208,10 +210,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             function forMines(set) {
-                let cellsArr = document.querySelectorAll('.cell');
-                while(set.size < (sapper.mines + arr.length + 1)) {
+                while(set.size < (this.mines + arr.length + 1)) {
                     let randome = Math.floor(Math.random() * (sapper.height * sapper.width));
-                    set.add(cellsArr[randome]);
+                    set.add(this.cellsArr[randome]);
                 }
                 set.forEach(value => {
                     if(!value.getAttribute('number')) {
@@ -220,13 +221,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            function forMediumAndHard(arr) {
-                if(sapper.select.value == 'hard' || sapper.select.value == 'medium') {
+            function difficultyСoefficient(arr) {
+                if(sapper.select.value == 'medium') {
+                    coeff(0.3);
+                }
+                if(sapper.select.value == 'hard')  {
+                    coeff(0.6);
+                }
+                function coeff(num) {
                     arr.forEach(elem => {
                         let random = Math.random();
-                        if (random < 0.6) {
+                        if (random < num) {
                             let arr2 = sapper.elemEnvironmentFunc(elem);
-                            forNumberZero(arr2);
+                            setAttributeZero(arr2);
                         }
                     });
                 }
@@ -234,12 +241,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         countAndSetAttribute(event) {
-            let cellsArr = document.querySelectorAll('.cell');
-            for(let i = 0; i < cellsArr.length; i++) {
-                resetFlags(cellsArr[i]);
+            for(let i = 0; i < this.cellsArr.length; i++) {
+                resetFlags(this.cellsArr[i]);
                 let counter = 0;
-                let cell = this.elemEnvironmentFunc(cellsArr[i]);
-                if(cellsArr[i].hasAttribute('mine')) {
+                let cell = this.elemEnvironmentFunc(this.cellsArr[i]);
+                if(this.cellsArr[i].hasAttribute('mine')) {
                     continue;
                 }
                 cell.forEach(value => {
@@ -247,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         counter++;
                     }
                 });
-                cellsArr[i].setAttribute('number', counter);
+                this.cellsArr[i].setAttribute('number', counter);
             }
             this.openCells(event);
 
@@ -365,10 +371,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 case '8': value.classList.add('num8');
                 break;
             }
-            if (!value.classList.contains('flag')) {
-                value.setAttribute('checked', '');
-            }
-            this.counterFunc('counteropencells');
+            if (!value.hasAttribute('checked') && !value.classList.contains('flag')) this.counterFunc('counteropencells');
+
+            if (!value.classList.contains('flag')) value.setAttribute('checked', '');
         }
     }
     let sapper = new Sapper(9, 9, 10);      

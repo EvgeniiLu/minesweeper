@@ -1,4 +1,6 @@
-* {
+*,
+*::after,
+*::before {
     box-sizing: border-box;
 }
 body {
@@ -6,42 +8,48 @@ body {
 }
 
 .wraper {
-    margin: 60px auto;
-    border: 2px solid black;
+    margin: 40px auto;
 }
 
 .menu {
-    align-items: center;
-    border: 4px outset rgb(0, 0, 0);
+    border: 4px outset rgb(163, 163, 163);
     height: 80px;
     background-color:rgb(0, 0, 170);
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu__inner {
+    width: 260px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .select {
-    font-size: 18px;
-    border: 3px solid black;
-    border-radius: 7px;
-    margin-left: 23px;
-    width: 100px;
-    height: 40px;
+    font-size: 16px;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 4px;
+    width: 80px;
+    height: 30px;
     background-color: rgb(0, 229, 255);
     opacity: 1;
     transition: opacity .1s;
+    outline: 0px;
 }
 .select:hover {
     opacity: 0.75;
 }
 
 .restart {
-    font-size: 18px;
-    border: 3px solid black;
-    border-radius: 7px;
-    width: 100px;
-    height: 40px;
+    font-size: 16px;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 4px;
+    width: 80px;
+    height: 30px;
     background-color: rgb(0, 229, 255);
     opacity: 1;
-    margin-left: 23px;
+    transition: 0.08s linear;
 }
 .restart:hover {
     opacity: 0.75;
@@ -52,48 +60,29 @@ body {
 }
 
 .flagmenu {
-    height: 40px;
-    width: 100px;
+    height: 30px;
+    width: 80px;
     background-color: rgb(0, 229, 255);
-    font-size: 18px;
-    border: 3px solid black;
-    border-radius: 7px;
-    margin-left: 23px;
-    position: relative;
+    font-size: 16px;
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.flagmenu::before {
-    content: '';
-    position: absolute;
-    width: 4px;
-    height: 15px;
-    background:rgb(175, 131, 37);
-    transform: translate(110%, 50%);
-    border-bottom: 4px solid rgb(5, 155, 25) ;
-    border-left: 6px solid rgb(0, 229, 255);;
-    border-right: 6px solid rgb(0, 229, 255);;
+.flagmenu .flag::before {
+    border-left: 7px solid rgb(0, 229, 255);
+    border-right: 7px solid rgb(0, 229, 255);
 }
 
-.flagmenu::after {
-    content: '';
-    position: absolute;
-    width: 0; 
-    height: 0;
-    border-top: 5px solid transparent;
-    border-left: 15px solid #ff0000;
-    border-bottom: 5px solid transparent;
-    transform: translate(157%, 65%);
+.flagmenu .flag{
+    margin-left: 18px;
 }
 
 .flagcounter {
-    width: 50px;
-    height: 30px;
-    position: absolute;
-    left: 40px;
-    top: 6px;
-    text-align: center;
-    vertical-align: middle;
-
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .game_table {
@@ -107,16 +96,15 @@ body {
 
 .cell {
     position: relative;
-    border: 4px outset rgb(0, 0, 0);
+    border: 4px outset rgb(163, 163, 163);
     display: table-cell;
     background-color:rgb(0, 60, 255);
-    width: 45px;
-    height: 45px;
-    opacity: 1;
+    width: 36px;
+    height: 36px;
     text-align: center;
     vertical-align: middle;
-    font-family: inherit;
-    font-size: 20px;
+    font-size: 18px;
+    transition: 0.06s linear;
 }
 
 .cell:hover {
@@ -129,34 +117,13 @@ body {
 
 .mine {
     background-color:rgb(237, 180, 255);
-    position: relative;
-}
-
-.mine::before {
-    content: '';
-    position: absolute;
-    background:rgb(237, 180, 255);
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 4px dashed rgb(0, 0, 0) ;
-    transform: translate(-50%, -50%);
-}
-
-.mine::after {
-    content: '';
-    position: absolute;
-    background:black;
-    transform: translate(-50%, -50%);
-    width: 18px;
-    height: 18px;
-    border: 4px dashed rgb(155, 17, 17);
-    border-radius: 50%;
+    background-image: url(bomb_icon_159026.svg);
+    background-repeat: no-repeat;
 }
 
 .num0 {
     background-color:rgb(255, 255, 255);
-}
+} 
 
 .num1 {
     background-color:rgb(255, 196, 157);
@@ -254,23 +221,35 @@ body {
 .flag::before {
     content: '';
     position: absolute;
-    width: 4px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     background:rgb(175, 131, 37);
     transform: translate(-50%, -50%);
     border-bottom: 4px solid rgb(5, 155, 25) ;
-    border-left: 6px solid rgb(178, 255, 106);
-    border-right: 6px solid rgb(178, 255, 106);
+    border-left: 7px solid rgb(178, 255, 106);
+    border-right: 7px solid rgb(178, 255, 106);
+    animation: flagAnimated 0.3s forwards;
 }
+
 .flag::after {
     content: '';
     position: absolute;
     width: 0; 
     height: 0;
-    border-top: 5px solid transparent;
-    border-left: 15px solid #ff0000;
-    border-bottom: 5px solid transparent;
-    transform: translate(-15%, -130%);
+    border-top: 4px solid transparent;
+    border-left: 12px solid #ff0000;
+    border-bottom: 4px solid transparent;
+    transform: translate(-10%, -115%);
+    animation: flagAnimated 0.3s forwards;
+}
+
+@keyframes flagAnimated {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .err {
@@ -278,20 +257,20 @@ body {
     position: relative;
 }
 
-.err::before {
-    content: '';
-    position: absolute;
-    background:rgb(255, 0, 0);
-    width: 4px;
-    height: 47px;
-    transform: rotate(45deg) translate(-18px, -15px);
-}
-
+.err::before,
 .err::after {
     content: '';
     position: absolute;
     background:rgb(255, 0, 0);
-    width: 4px;
-    height: 47px;
-    transform: rotate(315deg) translate(15px, -18px);
+    width: 0px;
+    height: 30px;
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 2px;
+}
+
+.err::before{
+    transform: rotate(45deg) translate(-12px, -9px);
+}
+.err::after {
+    transform: rotate(315deg) translate(9px, -12px);
 }
